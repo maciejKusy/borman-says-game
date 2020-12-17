@@ -1,6 +1,6 @@
 (function() {
 
-  //creating the logic for adding onto the combination + starting combination
+  //creating basic game variables:
   var availableChoices = document.querySelectorAll("[data-key]");
 
   var header = document.querySelector(".level-display");
@@ -35,6 +35,13 @@
   }
 
 
+  //creating function cleansing unnecessary event listeners:
+  function purgeEventListeners() {
+    document.removeEventListener("mousedown", buttonClickedEvent);
+    document.removeEventListener("keydown", keyPressedEvent);
+  }
+
+
   //creating function responsible for logic upon button being pressed:
   function runButtonLogic(key, button) {
     playSound(key);
@@ -45,22 +52,18 @@
 
     choiceCounter += 1;
 
-    console.log(playerChoices);
-    console.log(combination)
     //creating condition for when the player's choice is not in line with the
     //respective position in the combination:
     if (playerChoices[choiceCounter - 1] != combination[choiceCounter - 1]) {
-      document.removeEventListener("mousedown", buttonClickedEvent);
-      document.removeEventListener("keydown", keyPressedEvent);
+      purgeEventListeners();
 
       //gameover logic goes here:
       newGame();
     }
     //creating condition for when player made as many choices as there are
-    //possibilities in the combination and so what level they are on:
+    //possibilities in the combination and so advances a level:
     if (choiceCounter == level) {
-      document.removeEventListener("mousedown", buttonClickedEvent);
-      document.removeEventListener("keydown", keyPressedEvent);
+      purgeEventListeners();
 
       //new level set up:
       setUpLevel();
