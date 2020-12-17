@@ -7,9 +7,9 @@
 
   var level = null;
 
-  var combination = [];
+  var combination = null;
 
-  var playerChoices = [];
+  var playerChoices = null;
 
   var choiceCounter = 0;
 
@@ -34,6 +34,7 @@
     setTimeout(function() {button.classList.remove("pressed")}, 200);
   }
 
+
   //creating function responsible for logic upon button being pressed:
   function runButtonLogic(key, button) {
     playSound(key);
@@ -44,24 +45,34 @@
 
     choiceCounter += 1;
 
+    console.log(playerChoices);
+    console.log(combination)
+    //creating condition for when the player's choice is not in line with the
+    //respective position in the combination:
     if (playerChoices[choiceCounter - 1] != combination[choiceCounter - 1]) {
       document.removeEventListener("mousedown", buttonClickedEvent);
       document.removeEventListener("keydown", keyPressedEvent);
 
+      //gameover logic goes here:
       newGame();
     }
-
+    //creating condition for when player made as many choices as there are
+    //possibilities in the combination and so what level they are on:
     if (choiceCounter == level) {
       document.removeEventListener("mousedown", buttonClickedEvent);
       document.removeEventListener("keydown", keyPressedEvent);
 
+      //new level set up:
       setUpLevel();
     }
   }
 
+
   //creating function setting everything up for new game
   function newGame() {
     level = 0;
+
+    combination = [];
 
     header.textContent = "Press any key to continue";
 
@@ -83,6 +94,7 @@
     }
   }
 
+
   //creating function responsible for what happens when key is pressed:
   function keyPressedEvent(eventObject) {
     var buttonPressed = document.querySelector(`[data-key="${eventObject.key}"]`)
@@ -94,9 +106,9 @@
     }
   }
 
+
   //creating function for what needs to happen after first keypress is done:
   function setUpLevel() {
-
     playerChoices = [];
 
     addToCombination();
