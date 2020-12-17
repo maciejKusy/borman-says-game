@@ -1,0 +1,66 @@
+body {
+  background-color: #0a043c;
+  font-family: 'Press Start 2P', cursive;
+  height: 100%;
+  padding-top: 2.5rem;
+  text-align: center;
+}
+
+.level-display {
+  color: #ffe3d8;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  margin: 3rem auto 0 auto;
+  height: 30rem;
+  width: 30rem;
+  transform: rotate(45deg);
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 50%;
+  width: 100%
+}
+
+.button {
+  border: 0.5rem outset #bbbbbb;
+  height: 90%;
+  width: 45%;
+}
+
+.yellow {
+  background-color: yellow;
+  border-radius: 100% 0 0 0;
+}
+
+.green {
+  background-color: green;
+  border-radius: 0 100% 0 0;
+}
+
+.blue {
+  background-color: blue;
+  border-radius: 0 0 100% 0;
+}
+
+.red {
+  background-color: red;
+  border-radius: 0 0 0 100%;
+}
+
+.pressed {
+  border-style: inset;
+  box-shadow: 0 0 1rem #ffe5b9;
+}
+
+@media (max-width: 1000px) {
+  .button-container {
+    height: 40rem;
+    width: 40rem;
+  }
+}
