@@ -58,6 +58,10 @@ body {
   box-shadow: 0 0 1rem #ffe5b9;
 }
 
+.game-over {
+  background-color: orange;
+}
+
 @media (max-width: 1000px) {
   .button-container {
     height: 40rem;

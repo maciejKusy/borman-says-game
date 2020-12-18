@@ -58,7 +58,7 @@
       purgeEventListeners();
 
       //gameover logic goes here:
-      newGame();
+      return gameOver();
     }
     //creating condition for when player made as many choices as there are
     //possibilities in the combination and so advances a level:
@@ -84,6 +84,25 @@
     }, {once: true});
   }
 
+
+  //creating function responsible for game over event:
+  function gameOver() {
+    purgeEventListeners();
+
+    var background = document.querySelector("body");
+
+    background.classList.add("game-over");
+
+    setTimeout(function() {background.classList.remove("game-over"), 400});    
+
+    header.textContent = "Game over, press ENTER to restart";
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key == "Enter") {
+        newGame();
+      }
+    });
+  }
 
   //creating function responsible for what happens when button is clicked
   function buttonClickedEvent(eventObject) {
