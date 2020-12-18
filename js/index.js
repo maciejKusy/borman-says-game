@@ -66,7 +66,7 @@
       purgeEventListeners();
 
       //new level set up:
-      setUpLevel();
+      setTimeout(setUpLevel, 700);
     }
   }
 
