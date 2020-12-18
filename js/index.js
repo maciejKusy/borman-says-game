@@ -85,6 +85,16 @@
   }
 
 
+  //creating auxiliary function to handle new game after enter pressed:
+  function restart(eventObject) {
+    if (eventObject.key == "Enter") {
+      document.removeEventListener("keydown", restart);
+
+      newGame();
+    }
+  }
+
+
   //creating function responsible for game over event:
   function gameOver() {
     purgeEventListeners();
@@ -93,16 +103,13 @@
 
     background.classList.add("game-over");
 
-    setTimeout(function() {background.classList.remove("game-over"), 500});    
+    setTimeout(function() {background.classList.remove("game-over"), 500});
 
     header.textContent = "Game over, press ENTER to restart";
 
-    document.addEventListener("keydown", function(event) {
-      if (event.key == "Enter") {
-        newGame();
-      }
-    });
+    document.addEventListener("keydown", restart);
   }
+
 
   //creating function responsible for what happens when button is clicked
   function buttonClickedEvent(eventObject) {
