@@ -93,7 +93,7 @@
 
     background.classList.add("game-over");
 
-    setTimeout(function() {background.classList.remove("game-over"), 400});    
+    setTimeout(function() {background.classList.remove("game-over"), 500});    
 
     header.textContent = "Game over, press ENTER to restart";
 
