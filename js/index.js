@@ -10,21 +10,21 @@
 (function() {
 
   /** Creating basic game variables */
-  var availableChoices = document.querySelectorAll("[data-key]");
+  const availableChoices = document.querySelectorAll("[data-key]");
 
-  var header = document.querySelector(".level-display");
+  const header = document.querySelector(".level-display");
 
-  var level = null;
+  let level = null;
 
-  var combination = null;
+  let combination = null;
 
-  var playerChoices = null;
+  let playerChoices = null;
 
-  var choiceCounter = 0;
+  let choiceCounter = 0;
 
   /** Adds random button to the combination end of the combination array */
-  function addToCombination() {
-    var randomIndex = Math.floor(Math.random() * availableChoices.length);
+  const addToCombination = () => {
+    let randomIndex = Math.floor(Math.random() * availableChoices.length);
 
     combination.push(availableChoices[randomIndex].getAttribute("data-key"));
   }
@@ -33,8 +33,8 @@
   /** Plays relevant sound when a button is pressed
    * @param {string} key - the key/button that was pressed
    */
-  function playSound(key) {
-    var sound = new Audio("sounds/" + key + ".wav");
+  const playSound = key => {
+    let sound = new Audio("sounds/" + key + ".wav");
 
     sound.play();
   }
@@ -45,7 +45,7 @@
    * @param {string} className - The class to be applied for the duration of the blink
    * @param {timeoutDuration} - the duration of the blink
    */
-  function blinkingStyleChange(object, className, timeoutDuration) {
+  const blinkingStyleChange = (object, className, timeoutDuration) => {
     object.classList.add(className);
 
     setTimeout(function() {object.classList.remove(className)}, timeoutDuration);
@@ -53,7 +53,7 @@
 
 
   /** Purges event listeners from previous 'level' */
-  function purgeEventListeners() {
+  const purgeEventListeners = () => {
     document.removeEventListener("mousedown", buttonClickedEvent);
     document.removeEventListener("keydown", keyPressedEvent);
   }
@@ -63,7 +63,7 @@
    * @param {string} key - the key that corresponds to the button that was clicked
    * @param {Object} button - the button object that is the target of the event
    */
-  function runButtonLogic(key, button) {
+  const runButtonLogic = (key, button) => {
     playSound(key);
 
     blinkingStyleChange(button, "pressed", 200);
@@ -93,7 +93,7 @@
 
   /** Setting up a new game bu re-setting the level and the combination,
    * refreshing the header text and adding the first event listener */
-  function newGame() {
+  const newGame = () => {
     level = 0;
 
     combination = [];
@@ -101,13 +101,13 @@
     header.textContent = "Press any key to continue";
 
     document.addEventListener("keydown", function() {
-      setUpLevel();
+      setTimeout(setUpLevel, 500);
     }, {once: true});
   }
 
 
   /** Setting up new game after game lost */
-  function restart(eventObject) {
+  const restart = eventObject => {
     if (eventObject.key == "Enter") {
       document.removeEventListener("keydown", restart);
 
@@ -118,10 +118,10 @@
 
   /** Ending current game bu purging event listeners, giving the player a visual
    * cue, updating the header text and setting up 'restart' event listener */
-  function gameOver() {
+  const gameOver = () => {
     purgeEventListeners();
 
-    var background = document.querySelector("body");
+    const background = document.querySelector("body");
 
     blinkingStyleChange(background, "game-over", 300);
 
@@ -134,12 +134,12 @@
   /** Handling 'mousedown' events
    * @param {Object} eventObject - the 'mousedown' event that occurs
    */
-  function buttonClickedEvent(eventObject) {
+  const buttonClickedEvent = eventObject => {
     if (eventObject.target.hasAttribute("data-key")) {
 
-      var buttonPressed = eventObject.target;
+      let buttonPressed = eventObject.target;
 
-      var keyPressed = eventObject.target.getAttribute("data-key");
+      let keyPressed = eventObject.target.getAttribute("data-key");
 
       runButtonLogic(keyPressed, buttonPressed);
     }
@@ -149,11 +149,11 @@
   /** Handling 'keydown' events
    * @param {Object} eventObject - the 'keydown' event that occurs
    */
-  function keyPressedEvent(eventObject) {
-    var buttonPressed = document.querySelector(`[data-key="${eventObject.key}"]`)
+  const keyPressedEvent = eventObject => {
+    let buttonPressed = document.querySelector(`[data-key="${eventObject.key}"]`)
 
     if (buttonPressed) {
-      var keyPressed = buttonPressed.getAttribute("data-key");
+      let keyPressed = buttonPressed.getAttribute("data-key");
 
       runButtonLogic(keyPressed, buttonPressed);
     }
@@ -162,7 +162,7 @@
 
   /** Sets up new level after a combination was entered by the player correctly
    */
-  function setUpLevel() {
+  const setUpLevel = () => {
     playerChoices = [];
 
     addToCombination();
@@ -171,9 +171,9 @@
 
     level += 1;
 
-    var lastElement = combination[combination.length - 1];
+    let lastElement = combination[combination.length - 1];
 
-    var lastElementButton = document.querySelector(`[data-key="${lastElement}"]`);
+    let lastElementButton = document.querySelector(`[data-key="${lastElement}"]`);
 
     playSound(lastElement);
 

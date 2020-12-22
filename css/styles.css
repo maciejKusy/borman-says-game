@@ -1,13 +1,22 @@
 body {
-  background-color: #0a043c;
+  background-color: #708bf5;
+  color: #ffe3d8;
   font-family: 'Press Start 2P', cursive;
-  height: 100%;
+  height: 92.5vh;
+  margin: 0;
   padding-top: 2.5rem;
   text-align: center;
+  text-shadow: 0.3em 0.3em 0.3em #081e77;
+  position: relative;
 }
 
-.level-display {
-  color: #ffe3d8;
+footer {
+  font-size: 0.5em;
+  position: absolute;
+  bottom: 1em;
+  width: 20%;
+  left: 40%;
+  bottom: 2em;
 }
 
 .button-container {
@@ -28,28 +37,29 @@ body {
 }
 
 .button {
-  border: 0.5rem outset #bbbbbb;
+  border: 0.5rem outset #a7c5eb;
+  box-shadow:  0.8em 0.3em 0.8em #081e77;
   height: 90%;
   width: 45%;
 }
 
 .yellow {
-  background-color: yellow;
+  background-image: linear-gradient(#ffd66b, #cc9200);
   border-radius: 100% 0 0 0;
 }
 
 .green {
-  background-color: green;
+  background-image: linear-gradient(#5eaaa8, #356463);
   border-radius: 0 100% 0 0;
 }
 
 .blue {
-  background-color: blue;
+  background-image: linear-gradient(#153e90, #0a1d43);
   border-radius: 0 0 100% 0;
 }
 
 .red {
-  background-color: red;
+  background-image: linear-gradient(#c05555, #702929);
   border-radius: 0 0 0 100%;
 }
 
