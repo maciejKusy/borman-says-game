@@ -24,7 +24,9 @@
 
   /** Adds random button to the combination end of the combination array */
   function addToCombination() {
-    combination.push(availableChoices[Math.floor(Math.random() * availableChoices.length)].getAttribute("data-key"));
+    var randomIndex = Math.floor(Math.random() * availableChoices.length);
+
+    combination.push(availableChoices[randomIndex].getAttribute("data-key"));
   }
 
 
@@ -38,13 +40,15 @@
   }
 
 
-  /** Styles button when pressed and removes the styling in order to create an
-   * illusion of the button actually being pressed
-   * @param {string} button - the button that was pressed and is to be styled */
-  function buttonStyleChange(button) {
-    button.classList.add("pressed");
+  /** Creates an illusion of a 'blinking' style change for a selected object
+   * @param {Object} object - The DOM element that will 'blink'
+   * @param {string} className - The class to be applied for the duration of the blink
+   * @param {timeoutDuration} - the duration of the blink
+   */
+  function blinkingStyleChange(object, className, timeoutDuration) {
+    object.classList.add(className);
 
-    setTimeout(function() {button.classList.remove("pressed")}, 200);
+    setTimeout(function() {object.classList.remove(className)}, timeoutDuration);
   }
 
 
@@ -62,19 +66,20 @@
   function runButtonLogic(key, button) {
     playSound(key);
 
-    buttonStyleChange(button);
+    blinkingStyleChange(button, "pressed", 200);
 
     playerChoices.push(key);
 
-    choiceCounter += 1;
-
     /** Setting condition for when the player's choice is not in line with the
      * respective position in the combination */
-    if (playerChoices[choiceCounter - 1] != combination[choiceCounter - 1]) {
+    if (playerChoices[choiceCounter] != combination[choiceCounter]) {
       purgeEventListeners();
 
       return gameOver();
     }
+
+    choiceCounter += 1;
+
     /** Setting condition for when player made as many choices as there are
      * possibilities in the combination without an error and so advances a level
      */
@@ -118,9 +123,7 @@
 
     var background = document.querySelector("body");
 
-    background.classList.add("game-over");
-
-    setTimeout(function() {background.classList.remove("game-over"), 500});
+    blinkingStyleChange(background, "game-over", 300);
 
     header.textContent = "Game over, press ENTER to restart";
 
@@ -174,7 +177,7 @@
 
     playSound(lastElement);
 
-    buttonStyleChange(lastElementButton);
+    blinkingStyleChange(lastElementButton, "pressed", 200);
 
     header.textContent = "Level " + level;
 
