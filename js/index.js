@@ -1,6 +1,15 @@
+/**
+ * Boro Says game, based on the popular Simon Says game, developed by
+ * Maciej Kusy, December 2020. With each level the program will increment the
+ * combination of keys the player needs to re-create by one button. */
+
+
+/**
+ * Enclosing the code within a IIFE in order to keep the global namespace clean
+ */
 (function() {
 
-  //creating basic game variables:
+  /** Creating basic game variables */
   var availableChoices = document.querySelectorAll("[data-key]");
 
   var header = document.querySelector(".level-display");
@@ -13,13 +22,15 @@
 
   var choiceCounter = 0;
 
-  //creating function adding random button to the combination:
+  /** Adds random button to the combination end of the combination array */
   function addToCombination() {
     combination.push(availableChoices[Math.floor(Math.random() * availableChoices.length)].getAttribute("data-key"));
   }
 
 
-  //creating function playing appropriate sound when button pressed
+  /** Plays relevant sound when a button is pressed
+   * @param {string} key - the key/button that was pressed
+   */
   function playSound(key) {
     var sound = new Audio("sounds/" + key + ".wav");
 
@@ -27,7 +38,9 @@
   }
 
 
-  //creating function responsible for styling changes upon button press:
+  /** Styles button when pressed and removes the styling in order to create an
+   * illusion of the button actually being pressed
+   * @param {string} button - the button that was pressed and is to be styled */
   function buttonStyleChange(button) {
     button.classList.add("pressed");
 
@@ -35,14 +48,17 @@
   }
 
 
-  //creating function cleansing unnecessary event listeners:
+  /** Purges event listeners from previous 'level' */
   function purgeEventListeners() {
     document.removeEventListener("mousedown", buttonClickedEvent);
     document.removeEventListener("keydown", keyPressedEvent);
   }
 
 
-  //creating function responsible for logic upon button being pressed:
+  /** Handling logic upon button being pressed
+   * @param {string} key - the key that corresponds to the button that was clicked
+   * @param {Object} button - the button object that is the target of the event
+   */
   function runButtonLogic(key, button) {
     playSound(key);
 
@@ -52,26 +68,26 @@
 
     choiceCounter += 1;
 
-    //creating condition for when the player's choice is not in line with the
-    //respective position in the combination:
+    /** Setting condition for when the player's choice is not in line with the
+     * respective position in the combination */
     if (playerChoices[choiceCounter - 1] != combination[choiceCounter - 1]) {
       purgeEventListeners();
 
-      //gameover logic goes here:
       return gameOver();
     }
-    //creating condition for when player made as many choices as there are
-    //possibilities in the combination and so advances a level:
+    /** Setting condition for when player made as many choices as there are
+     * possibilities in the combination without an error and so advances a level
+     */
     if (choiceCounter == level) {
       purgeEventListeners();
 
-      //new level set up:
       setTimeout(setUpLevel, 700);
     }
   }
 
 
-  //creating function setting everything up for new game
+  /** Setting up a new game bu re-setting the level and the combination,
+   * refreshing the header text and adding the first event listener */
   function newGame() {
     level = 0;
 
@@ -85,7 +101,7 @@
   }
 
 
-  //creating auxiliary function to handle new game after enter pressed:
+  /** Setting up new game after game lost */
   function restart(eventObject) {
     if (eventObject.key == "Enter") {
       document.removeEventListener("keydown", restart);
@@ -95,7 +111,8 @@
   }
 
 
-  //creating function responsible for game over event:
+  /** Ending current game bu purging event listeners, giving the player a visual
+   * cue, updating the header text and setting up 'restart' event listener */
   function gameOver() {
     purgeEventListeners();
 
@@ -111,7 +128,9 @@
   }
 
 
-  //creating function responsible for what happens when button is clicked
+  /** Handling 'mousedown' events
+   * @param {Object} eventObject - the 'mousedown' event that occurs
+   */
   function buttonClickedEvent(eventObject) {
     if (eventObject.target.hasAttribute("data-key")) {
 
@@ -124,7 +143,9 @@
   }
 
 
-  //creating function responsible for what happens when key is pressed:
+  /** Handling 'keydown' events
+   * @param {Object} eventObject - the 'keydown' event that occurs
+   */
   function keyPressedEvent(eventObject) {
     var buttonPressed = document.querySelector(`[data-key="${eventObject.key}"]`)
 
@@ -136,7 +157,8 @@
   }
 
 
-  //creating function for what needs to happen after first keypress is done:
+  /** Sets up new level after a combination was entered by the player correctly
+   */
   function setUpLevel() {
     playerChoices = [];
 
