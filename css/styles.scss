@@ -1,0 +1,118 @@
+//body variables
+$backgroundColor: #708bf5;
+$fontColor: #ffe3d8; 
+$textShadow: #081e77;
+$footerFontSize: 0.5em;
+
+//button border color
+$buttonBorder: #a7c5eb;
+
+//yellow button colors
+$darkerYellow: #cc9200;
+$lighterYellow: #ffd66b;
+
+//green button colors
+$darkerGreen: #356463;
+$lighterGreen: #5eaaa8;
+
+//blue button colors
+$darkerBlue: #0a1d43;
+$lighterBlue: #153e90;
+
+//red button colors
+$darkerRed: #702929;
+$lighterRed: #c05555;
+
+//pressed button variables
+$pressedShadow: #ffe5b9;
+
+//gameover flicker color
+$gameoverFlicker: orange;
+
+@mixin buttonBackground($color1, $color2) {
+  background-image: linear-gradient($color1, $color2);
+}
+
+body {
+  background-color: $backgroundColor;
+  color: $fontColor;
+  font-family: 'Press Start 2P', cursive;
+  height: 92.5vh;
+  margin: 0;
+  padding-top: 2.5rem;
+  text-align: center;
+  text-shadow: 0.3em 0.3em 0.3em $textShadow;
+  position: relative;
+}
+
+footer {
+  font-size: $footerFontSize;
+  margin: 0;
+  position: absolute;
+  width: 20%;
+  left: 40%;
+  bottom: 2em;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  margin: 3rem auto 0 auto;
+  height: 30rem;
+  width: 30rem;
+  transform: rotate(45deg);
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 50%;
+  width: 100%
+}
+
+.button {
+  border: 0.5rem outset $buttonBorder;
+  box-shadow:  0.8em 0.3em 0.8em $textShadow;
+  height: 90%;
+  width: 45%;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.yellow {
+  @include buttonBackground($lighterYellow, $darkerYellow);
+  border-radius: 100% 0 0 0;
+}
+
+.green {
+  @include buttonBackground($lighterGreen, $darkerGreen);
+  border-radius: 0 100% 0 0;
+}
+
+.blue {
+  @include buttonBackground($lighterBlue, $darkerBlue);
+  border-radius: 0 0 100% 0;
+}
+
+.red {
+  @include buttonBackground($lighterRed, $darkerRed);
+  border-radius: 0 0 0 100%;
+}
+
+.pressed {
+  border-style: inset;
+  box-shadow: 0 0 1rem $pressedShadow;
+}
+
+.game-over {
+  background-color: $gameoverFlicker;
+}
+
+@media (max-width: 1000px) {
+  .button-container {
+    height: 40rem;
+    width: 40rem;
+  }
+}

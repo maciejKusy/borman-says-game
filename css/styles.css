@@ -12,60 +12,81 @@ body {
 
 footer {
   font-size: 0.5em;
+  margin: 0;
   position: absolute;
-  bottom: 1em;
   width: 20%;
   left: 40%;
   bottom: 2em;
 }
 
 .button-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   margin: 3rem auto 0 auto;
   height: 30rem;
   width: 30rem;
-  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
 }
 
 .button-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 50%;
-  width: 100%
+  width: 100%;
 }
 
 .button {
   border: 0.5rem outset #a7c5eb;
-  box-shadow:  0.8em 0.3em 0.8em #081e77;
+  -webkit-box-shadow: 0.8em 0.3em 0.8em #081e77;
+          box-shadow: 0.8em 0.3em 0.8em #081e77;
   height: 90%;
   width: 45%;
 }
 
+.button:hover {
+  cursor: pointer;
+}
+
 .yellow {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#ffd66b), to(#cc9200));
   background-image: linear-gradient(#ffd66b, #cc9200);
   border-radius: 100% 0 0 0;
 }
 
 .green {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#5eaaa8), to(#356463));
   background-image: linear-gradient(#5eaaa8, #356463);
   border-radius: 0 100% 0 0;
 }
 
 .blue {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#153e90), to(#0a1d43));
   background-image: linear-gradient(#153e90, #0a1d43);
   border-radius: 0 0 100% 0;
 }
 
 .red {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#c05555), to(#702929));
   background-image: linear-gradient(#c05555, #702929);
   border-radius: 0 0 0 100%;
 }
 
 .pressed {
   border-style: inset;
-  box-shadow: 0 0 1rem #ffe5b9;
+  -webkit-box-shadow: 0 0 1rem #ffe5b9;
+          box-shadow: 0 0 1rem #ffe5b9;
 }
 
 .game-over {
@@ -78,3 +99,4 @@ footer {
     width: 40rem;
   }
 }
+/*# sourceMappingURL=styles.css.map */

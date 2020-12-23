@@ -14,11 +14,7 @@
 
   const header = document.querySelector(".level-display");
 
-  let level = null;
-
-  let combination = null;
-
-  let playerChoices = null;
+  let level, combination, playerChoices;
 
   let choiceCounter = 0;
 
@@ -41,21 +37,21 @@
 
 
   /** Creates an illusion of a 'blinking' style change for a selected object
-   * @param {Object} object - The DOM element that will 'blink'
+   * @param {Object} element - The DOM element that will 'blink'
    * @param {string} className - The class to be applied for the duration of the blink
    * @param {timeoutDuration} - the duration of the blink
    */
-  const blinkingStyleChange = (object, className, timeoutDuration) => {
-    object.classList.add(className);
+  const blinkingStyleChange = (element, className, timeoutDuration) => {
+    element.classList.add(className);
 
-    setTimeout(function() {object.classList.remove(className)}, timeoutDuration);
+    setTimeout(function() {element.classList.remove(className)}, timeoutDuration);
   }
 
 
   /** Purges event listeners from previous 'level' */
   const purgeEventListeners = () => {
-    document.removeEventListener("mousedown", buttonClickedEvent);
-    document.removeEventListener("keydown", keyPressedEvent);
+    document.removeEventListener("mousedown", handleButtonClicked);
+    document.removeEventListener("keydown", handleKeyPressed);
   }
 
 
@@ -107,8 +103,8 @@
 
 
   /** Setting up new game after game lost */
-  const restart = eventObject => {
-    if (eventObject.key == "Enter") {
+  const restart = keyPressedEvent => {
+    if (keyPressedEvent.key == "Enter") {
       document.removeEventListener("keydown", restart);
 
       newGame();
@@ -132,14 +128,14 @@
 
 
   /** Handling 'mousedown' events
-   * @param {Object} eventObject - the 'mousedown' event that occurs
+   * @param {Object} clickedEvent - the 'mousedown' event that occurs
    */
-  const buttonClickedEvent = eventObject => {
-    if (eventObject.target.hasAttribute("data-key")) {
+  const handleButtonClicked = clickedEvent => {
+    if (clickedEvent.target.hasAttribute("data-key")) {
 
-      let buttonPressed = eventObject.target;
+      let buttonPressed = clickedEvent.target;
 
-      let keyPressed = eventObject.target.getAttribute("data-key");
+      let keyPressed = clickedEvent.target.getAttribute("data-key");
 
       runButtonLogic(keyPressed, buttonPressed);
     }
@@ -147,10 +143,10 @@
 
 
   /** Handling 'keydown' events
-   * @param {Object} eventObject - the 'keydown' event that occurs
+   * @param {Object} keyPressEvent - the 'keydown' event that occurs
    */
-  const keyPressedEvent = eventObject => {
-    let buttonPressed = document.querySelector(`[data-key="${eventObject.key}"]`)
+  const handleKeyPressed = keyPressEvent => {
+    let buttonPressed = document.querySelector(`[data-key="${keyPressEvent.key}"]`)
 
     if (buttonPressed) {
       let keyPressed = buttonPressed.getAttribute("data-key");
@@ -181,9 +177,9 @@
 
     header.textContent = "Level " + level;
 
-    document.addEventListener("mousedown", buttonClickedEvent);
+    document.addEventListener("mousedown", handleButtonClicked);
 
-    document.addEventListener("keydown", keyPressedEvent);
+    document.addEventListener("keydown", handleKeyPressed);
   }
 
   newGame();
