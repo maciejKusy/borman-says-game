@@ -95,8 +95,8 @@ footer {
 
 @media (max-width: 1000px) {
   .button-container {
-    height: 40rem;
-    width: 40rem;
+    height: 80vw;
+    width: 80vw;
   }
 }
 /*# sourceMappingURL=styles.css.map */
